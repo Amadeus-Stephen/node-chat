@@ -1,7 +1,7 @@
 const moment = require('moment');
-function formatMessage(username, text) {
+function formatMessage(name, text) {
   return {
-    username,
+    name,
     text,
     time: moment().format('h:mm a')
   };

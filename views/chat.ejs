@@ -115,10 +115,10 @@ a {
 <script>
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
-const username = "<%= user.username %>"
+const name = "<%= user.name %>"
 const room = "<%= chatroom._id %>"
 const socket = io();
-socket.emit('joinRoom', { username, room });
+socket.emit('joinRoom', { name, room });
 socket.on('chatdata', ({  chatdata,users }) => {
   outputUsers(users);
   chatdata.map(message => {
@@ -145,7 +145,7 @@ function outputMessage(message) {
   div.classList.add('message');
   const p = document.createElement('p');
   p.classList.add('meta');
-  p.innerText = message.username;
+  p.innerText = message.name;
   p.innerHTML += `<span>${message.time}</span>`;
   div.appendChild(p);
   const para = document.createElement('p');
@@ -158,7 +158,7 @@ function outputUsers(users) {
   userList.innerHTML = '';
   users.forEach(user=>{
     const li = document.createElement('li');
-    li.innerText = user.username;
+    li.innerText = user.name;
     userList.appendChild(li);
   });
  }

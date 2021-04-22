@@ -67,8 +67,8 @@ app.use('/chat', require('./routes/chatroom.js'));
 const botName = 'ChatCord Bot';
 const Message = require("./models/Message")
 io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
+  socket.on('joinRoom', ({ name, room }) => {
+    const user = userJoin(socket.id, name, room);
     console.log(user)
     socket.join(user.room);
     socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
@@ -76,7 +76,7 @@ io.on('connection', socket => {
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
+        formatMessage(botName, `${user.name} has joined the chat`)
       );
     Message.find({chat:user.room}).then(chatdata =>  {
       console.log(user.room, chatdata)
@@ -87,7 +87,7 @@ io.on('connection', socket => {
     const user = getCurrentUser(socket.id);
     let message = new Message({
       chat:  user.room,
-      username : user.username,
+      name : user.name,
       text : msg,
     })
     message
@@ -101,7 +101,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        formatMessage(botName, `${user.username} has left the chat`)
+        formatMessage(botName, `${user.name} has left the chat`)
       );
       io.to(user.room).emit('roomUsers', {
         room: user.room,

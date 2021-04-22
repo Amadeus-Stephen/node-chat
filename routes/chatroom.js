@@ -72,7 +72,7 @@ router.post("/", (req, res) => {
           } else {
 			console.log("open");
 			const id = req.user._id;
-  			const username = req.user.username;
+  			const username = req.user.name;
             let chatroom = new Chatroom({ owner: {id , username}, name });
 			chatroom
 			.save()

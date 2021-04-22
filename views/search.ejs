@@ -5,7 +5,7 @@
 <% chatroom.forEach((entry, i, entries) => { %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <input id="<%= entry.name %>"  type="submit" name="roomid" value="<%= entry._id %>">
-            <h3><%= entry.name %> By || <%= entry.owner.username %></h3>
+            <h3><%= entry.name %> By || <%= entry.owner.name %></h3>
         </input>
     </li>
 <% }) %>
